@@ -15,21 +15,25 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            text-align: center;
         }
 
         .container {
-            width: 400px;
+            max-width: 600px;
             padding: 40px;
             background: #111;
             border-radius: 20px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            text-align: center;
         }
 
         h1 {
             font-size: 32px;
             margin-bottom: 30px;
             color: #007bff;
+        }
+
+        p {
+            font-size: 18px;
         }
 
         input[type="text"],
@@ -71,22 +75,76 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        @media screen and (max-width: 480px) {
-            .container {
-                width: 90%;
-            }
+        /* Styles pour le popup de confirmation */
+        .confirmation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+        }
+
+        .confirmation .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #111;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .confirmation h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .confirmation p {
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Contactez-nous</h1>
-        <form action="traitement_formulaire.php" method="POST">
+        <form id="contact-form" action="traitement_formulaire.php" method="POST">
             <input type="text" id="nom" name="nom" placeholder="Nom" required>
             <input type="email" id="email" name="email" placeholder="Email" required>
             <textarea id="message" name="message" rows="5" placeholder="Message" required></textarea>
             <button type="submit">Envoyer</button>
         </form>
     </div>
+
+    <div id="confirmation" class="confirmation">
+        <div class="container">
+            <h1>Merci !</h1>
+            <p>Vos informations ont été enregistrées avec succès.</p>
+        </div>
+    </div>
+
+    <script>
+        // Code JavaScript pour afficher le popup de confirmation après l'envoi du formulaire
+        const contactForm = document.getElementById("contact-form");
+        const confirmationPopup = document.getElementById("confirmation");
+
+        contactForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Empêche l'envoi du formulaire par défaut
+
+            // Envoyer les données du formulaire par AJAX ou via une requête fetch
+            // Dans cet exemple, nous supposons que le formulaire est soumis avec succès
+
+            // Afficher le popup de confirmation
+            confirmationPopup.style.display = "block";
+
+            // Rediriger l'utilisateur vers la page de confirmation après quelques secondes
+            setTimeout(function() {
+                window.location.href = "confirmation.html";
+            }, 3000); // Redirection après 3 secondes (3000 ms)
+        });
+    </script>
 </body>
 </html>
