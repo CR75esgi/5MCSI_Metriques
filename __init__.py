@@ -36,10 +36,8 @@ def monhistogramme():
     return render_template("histogramme.html")
 
 @app.route('/extract-minutes/<date_string>')
-def extract_minutes(date_string):
-        date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-        minutes = date_object.minute
-        return jsonify({'minutes': minutes})
+def commits():
+        return render_template("commits.html")
 
 
 if __name__ == '__main__':
