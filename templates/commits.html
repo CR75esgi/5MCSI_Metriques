@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphique des Commits</title>
+    <!-- Inclure les fichiers CSS et JavaScript de Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Graphique des Commits</h1>
+    <!-- Conteneur pour afficher le graphique -->
+    <div id="plot"></div>
+
+    <script>
+        // Données pour le graphique
+        var xValues = {{ plot.x | tojson }};
+        var yValues = {{ plot.y | tojson }};
+        
+        // Créer le graphique avec Plotly
+        var trace = {
+            x: xValues,
+            y: yValues,
+            mode: 'lines+markers',
+            name: 'Commits par minute'
+        };
+
+        var layout = {
+            title: 'Nombre de Commits par Minute',
+            xaxis: { title: 'Minute' },
+            yaxis: { title: 'Nombre de Commits' }
+        };
+
+        var data = [trace];
+
+        Plotly.newPlot('plot', data, layout);
+    </script>
+</body>
+</html>
