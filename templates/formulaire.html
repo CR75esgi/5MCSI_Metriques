@@ -3,68 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire de Contact</title>
+    <title>Formulaire de Contact Futuriste</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #111;
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
             color: #fff;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #222;
-            border-radius: 10px;
-        }
-
-        h1 {
+            width: 400px;
+            padding: 40px;
+            background: #111;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             text-align: center;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #007bff;
         }
 
         input[type="text"],
         input[type="email"],
         textarea {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
-            border: 1px solid #555;
-            border-radius: 5px;
-            background-color: #333;
+            margin-bottom: 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #007bff;
             color: #fff;
+            font-size: 16px;
+            outline: none;
         }
 
         textarea {
-            resize: vertical;
+            resize: none;
         }
 
         button[type="submit"] {
-            display: block;
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
+            background: #007bff;
             border: none;
-            border-radius: 5px;
-            background-color: #007bff;
+            border-radius: 25px;
             color: #fff;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background 0.3s ease;
+            outline: none;
         }
 
         button[type="submit"]:hover {
-            background-color: #0056b3;
+            background: #0056b3;
+        }
+
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                width: 90%;
+            }
         }
     </style>
 </head>
@@ -72,18 +82,9 @@
     <div class="container">
         <h1>Contactez-nous</h1>
         <form action="traitement_formulaire.php" method="POST">
-            <div class="form-group">
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email :</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message :</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
+            <input type="text" id="nom" name="nom" placeholder="Nom" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <textarea id="message" name="message" rows="5" placeholder="Message" required></textarea>
             <button type="submit">Envoyer</button>
         </form>
     </div>
