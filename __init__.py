@@ -35,6 +35,46 @@ def mongraphique():
 def monhistogramme():
     return render_template("histogramme.html")
 
+from flask import Flask, render_template, jsonify
+from datetime import datetime
+import requests
+import plotly.graph_objs as go
+
+app = Flask(__name__)
+
+# Vos routes existantes ici...
+
+@app.route('/commits/')
+def commits():
+    # Récupérer les données des commits depuis l'API GitHub
+    url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits"
+    response = requests.get(url)
+    commits = response.json()
+
+    # Initialiser un dictionnaire pour stocker le nombre de commits par minute
+    commits_per_minute = {}
+    for commit in commits:
+        date_string = commit['commit']['author']['date']
+        date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+        minute = date_object.minute
+        if minute not in commits_per_minute:
+            commits_per_minute[minute] = 1
+        else:
+            commits_per_minute[minute] += 1
+    
+    # Créer les données pour le graphique
+    x_values = list(commits_per_minute.keys())
+    y_values = list(commits_per_minute.values())
+    graph = go.Scatter(x=x_values, y=y_values, mode='lines+markers', name='Commits par minute')
+    layout = go.Layout(title='Nombre de Commits par Minute', xaxis=dict(title='Minute'), yaxis=dict(title='Nombre de Commits'))
+    figure = go.Figure(data=[graph], layout=layout)
+    
+    return render_template('commits.html', plot=figure.to_html(include_plotlyjs='cdn'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
 
   
 if __name__ == "__main__":
